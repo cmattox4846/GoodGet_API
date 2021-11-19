@@ -1,13 +1,25 @@
-﻿namespace eCommerceStarterCode.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace eCommerceStarterCode.Models
 {
     public class ShoppingCart
     {
-        public int UserId { get; set; }
-        public int ProductId { get; set; }
+        [Key]
         public int Quantity { get; set; }
-        public virtual Products Products { get; set; }
-        public virtual User User { get; set; }
+        
 
 
+        [ForeignKey("User")]
+
+        public string UserID { get; set; }
+
+        public ShoppingCart User { get; set; }
+
+        [ForeignKey("Product")]
+
+        public string ProductId { get; set; }
+
+        public Products Product { get; set; }
     }
 }
