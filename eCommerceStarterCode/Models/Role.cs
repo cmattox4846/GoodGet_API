@@ -8,12 +8,12 @@ namespace eCommerceStarterCode.Models
         [Key]
         public int Id { get; set; }
         public string RoleName { get; set; }
-        public virtual UserRoles UserRoles { get; set; }
+       
 
         [ForeignKey("Roles")]
 
         public string RoleID { get; set; }
 
-        public ShoppingCart Roles { get; set; }
+        public UserRoles Roles { get; set; }
     }
 }
