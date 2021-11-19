@@ -12,11 +12,13 @@ namespace eCommerceStarterCode.Configuration
             (
                 new IdentityRole
                 {
+                    Id = "1",
                     Name = "User",
                     NormalizedName = "USER"
                 },
                 new IdentityRole
                 {
+                    Id="2",
                     Name = "Admin",
                     NormalizedName = "ADMIN"
                 }
