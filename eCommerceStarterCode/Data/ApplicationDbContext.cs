@@ -2,6 +2,7 @@
 using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace eCommerceStarterCode.Data
 {
@@ -13,8 +14,7 @@ namespace eCommerceStarterCode.Data
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<UserRoles> UserRole { get; set; }
         public DbSet<Products> Products { get; set; }
-
-
+        public IEnumerable<object> ShoppingCart { get; internal set; }
 
         public ApplicationDbContext(DbContextOptions options)
             :base(options)
