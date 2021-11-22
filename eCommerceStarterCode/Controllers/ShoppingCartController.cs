@@ -42,7 +42,7 @@ namespace eCommerceStarterCode.Controllers
         {
             //assign variable to "productId"
             var ProductToBeRemoved = "productId";
-            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Products.Name == ProductToBeRemoved).SingleOrDefault;
+            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Product.Name == ProductToBeRemoved).SingleOrDefault();
             _context.ShoppingCarts.Remove(ItemToRemove);
             _context.SaveChanges();
         }
@@ -52,12 +52,12 @@ namespace eCommerceStarterCode.Controllers
             var GetProducts = _context.ShoppingCarts.Include(sc => sc.Users).Include(sc => sc.Product).Where(sc => sc.Users.Id == UserData);
             foreach (ShoppingCart product in GetProducts)
             {
-                var ItemsInCart = [];
+               // var ItemsInCart = [];
 
             }
 
 
-            return View()
+            return View();
         }
 
 

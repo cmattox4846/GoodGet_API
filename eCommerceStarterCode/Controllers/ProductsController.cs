@@ -1,7 +1,10 @@
 ﻿using eCommerceStarterCode.Data;
+using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace eCommerceStarterCode.Controllers
 {
@@ -30,6 +33,29 @@ namespace eCommerceStarterCode.Controllers
             }
 
             return Ok(products);
+        }
+
+        [HttpGet("{Id}")]
+        public IActionResult FilterProducts( string searchProducts)
+        {
+           
+            var searchForProducts = _context.Products.Where(sp => sp.Name == searchProducts).FirstOrDefault();
+            return Ok();
+        }
+        Products newProductList = new Products()
+        {
+            
+        };
+        [HttpDelete("{Delete}")]
+        void RemoveProduct(string removeThisProduct)
+        {
+            var deleteProduct = _context.Products.Where(pr => pr.Name == removeThisProduct);
+            
+            foreach (Products productRemoval in deleteProduct)
+            {
+                _context.Products.Remove(productRemoval);
+            }
+            _context.SaveChanges();
         }
 
     }
