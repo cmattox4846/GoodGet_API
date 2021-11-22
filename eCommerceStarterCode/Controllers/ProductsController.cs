@@ -58,5 +58,28 @@ namespace eCommerceStarterCode.Controllers
             _context.SaveChanges();
         }
 
+        [HttpGet("{Add}")]
+        void AddProduct(string addThisProduct)
+        {
+            var addProduct = _context.Products.Where(pr => pr.Name == addThisProduct);
+
+            foreach (Products productAddition in addProduct)
+            {
+                _context.Products.Remove(productAddition);
+            }
+            _context.SaveChanges();
+        }
+
+        [HttpGet("{Add}")]
+        void EditProduct(string editThisProduct)
+        {
+            var editProduct = _context.Products.Where(pr => pr.Name == editThisProduct);
+
+            foreach (Products productEdit in editProduct)
+            {
+                _context.Products.Remove(productEdit);
+            }
+            _context.SaveChanges();
+        }
     }
 }
