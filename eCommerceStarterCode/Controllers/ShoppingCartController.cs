@@ -2,6 +2,7 @@
 using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -50,12 +51,13 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult GetProductFromShoppingCart(string UserData)
         {
             var GetProducts = _context.ShoppingCarts.Include(sc => sc.Users).Include(sc => sc.Product).Where(sc => sc.Users.Id == UserData);
+            var products = GetProducts.ToList();
             foreach (ShoppingCart product in GetProducts)
             {
-               // var ItemsInCart = [];
-
-            }
-
+                var ItemsInCart = product;
+                Console.WriteLine(ItemsInCart);
+            };
+            
 
             return View();
         }
