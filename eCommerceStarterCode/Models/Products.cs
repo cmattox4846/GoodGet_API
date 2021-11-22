@@ -12,10 +12,10 @@ namespace eCommerceStarterCode.Models
         public decimal Price { get; set; }
         
         
-        [ForeignKey("ShoppingCart")]
+        //[ForeignKey("ShoppingCart")]
         
-        public string ShoppingCartId { get; set; }
+        //public string ShoppingCartId { get; set; }
 
-        public ShoppingCart ShoppingCart { get; set; }
+        //public ShoppingCart ShoppingCart { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace eCommerceStarterCode.Models
 {
 
-    public class UserRoles
+    
 
     public partial class UserRoles
 
@@ -14,7 +14,7 @@ namespace eCommerceStarterCode.Models
       
         [ForeignKey("User")]
 
-        public int UserId { get; set; }
+        public string Id { get; set; }
 
         public User User { get; set; }
 

@@ -7,6 +7,7 @@ namespace eCommerceStarterCode.Models
     {
         [Key]
 
+
         public string Review { get; set; }
         public int Rating { get; set; }
         
@@ -15,6 +16,6 @@ namespace eCommerceStarterCode.Models
 
         public string ReviewID { get; set; }
 
-        public ShoppingCart ProductReview { get; set; }
+        public Reviews ProductReview { get; set; }
     }
 }

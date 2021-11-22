@@ -10,10 +10,6 @@ namespace eCommerceStarterCode.Models
         public string RoleName { get; set; }
        
 
-        [ForeignKey("Roles")]
-
-        public string RoleID { get; set; }
-
-        public UserRoles Roles { get; set; }
+       
     }
 }

@@ -14,7 +14,7 @@ namespace eCommerceStarterCode.Models
 
         public string UserID { get; set; }
 
-        public ShoppingCart User { get; set; }
+        public User Users{ get; set; }
 
         [ForeignKey("Product")]
 
