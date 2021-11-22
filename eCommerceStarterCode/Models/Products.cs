@@ -11,11 +11,5 @@ namespace eCommerceStarterCode.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         
-        
-        //[ForeignKey("ShoppingCart")]
-        
-        //public string ShoppingCartId { get; set; }
-
-        //public ShoppingCart ShoppingCart { get; set; }
     }
 }
