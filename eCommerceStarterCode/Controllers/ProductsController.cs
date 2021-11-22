@@ -1,12 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+
+﻿using eCommerceStarterCode.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceStarterCode.Controllers
 {
-    public class ProductsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly Data.ApplicationDbContext _context;
+
+        public ProductsController(ApplicationDbContext context)
         {
-            return View();
+            
+            _context = context;
+          
         }
+
+        [HttpGet, Authorize]
+
+        public IActionResult GetProducts()
+        {
+            var products = _context.Products;
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(products);
+        }
+
+
     }
 }

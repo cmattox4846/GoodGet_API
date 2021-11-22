@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122163937_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,16 +51,14 @@ namespace eCommerceStarterCode.Migrations
                         new
                         {
                             Id = "1",
-                            
-                            ConcurrencyStamp = "d55ff50c-ccff-4d61-9966-1666dfe976b8",
+                            ConcurrencyStamp = "4fb382e1-cf41-4f3c-941b-6c1904154e67",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "2",
-
-                            ConcurrencyStamp = "1aae894a-6768-4f79-9681-442ef4c2f54c",
+                            ConcurrencyStamp = "53042113-fca0-4665-be6f-e616115e713f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -185,36 +185,6 @@ namespace eCommerceStarterCode.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Description = "Samsung QLED 55 TV",
-                            Name = "Samsung TV",
-                            Price = 1299.99m
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Description = "Beats by Dre Wireless Headphones",
-                            Name = "Beats Headphones",
-                            Price = 199.99m
-                        },
-                        new
-                        {
-                            Id = "3",
-                            Description = "GoPro Hero 9",
-                            Name = "GoPro",
-                            Price = 459.99m
-                        },
-                        new
-                        {
-                            Id = "4",
-                            Description = "Cat 6 Etherenet Cable 25'",
-                            Name = "Ethernet Cable",
-                            Price = 459.99m
-                        });
                 });
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Reviews", b =>

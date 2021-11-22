@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122172342_products")]
+    partial class products
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,16 +51,14 @@ namespace eCommerceStarterCode.Migrations
                         new
                         {
                             Id = "1",
-                            
-                            ConcurrencyStamp = "d55ff50c-ccff-4d61-9966-1666dfe976b8",
+                            ConcurrencyStamp = "ad825681-a9db-49f9-9514-878316ba487a",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "2",
-
-                            ConcurrencyStamp = "1aae894a-6768-4f79-9681-442ef4c2f54c",
+                            ConcurrencyStamp = "12a9537f-527a-4b19-b2ea-c735623a1b8d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
