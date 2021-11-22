@@ -42,7 +42,7 @@ namespace eCommerceStarterCode.Controllers
         {
             //assign variable to "productId"
             var ProductToBeRemoved = "productId";
-            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Product.Name == ProductToBeRemoved).SingleOrDefault;
+            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Products.Name == ProductToBeRemoved).SingleOrDefault;
             _context.ShoppingCarts.Remove(ItemToRemove);
             _context.SaveChanges();
         }
