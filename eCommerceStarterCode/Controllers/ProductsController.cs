@@ -47,19 +47,20 @@ namespace eCommerceStarterCode.Controllers
         {
             
         };
-        [HttpDelete("{Delete}"), Authorize]
-        void RemoveProduct(string removeThisProduct)
+        [HttpDelete("{Id}"), Authorize]
+        public IActionResult RemoveProduct(int Id)
         {
-            var deleteProduct = _context.Products.Where(pr => pr.Name == removeThisProduct);
+            var deleteProduct = _context.Products.Where(pr => pr.Id == Id);
             
             foreach (Products productRemoval in deleteProduct)
             {
                 _context.Products.Remove(productRemoval);
             }
             _context.SaveChanges();
+            return StatusCode(202, Id);
         }
 
-        [HttpPost("{Add}"), Authorize]
+        [HttpPost(), Authorize]
         public IActionResult AddProduct([FromBody]Products addThisProduct)
         {
 
@@ -73,7 +74,7 @@ namespace eCommerceStarterCode.Controllers
             _context.Products.Add(newProduct);
             _context.SaveChanges();
 
-            return StatusCode(204, newProduct);
+            return StatusCode(202, newProduct);
 
 
 
@@ -92,7 +93,7 @@ namespace eCommerceStarterCode.Controllers
             _context.Products.Update(updatedProduct);
             _context.SaveChanges();
 
-            return StatusCode(204, updatedProduct);
+            return StatusCode(202, updatedProduct);
         }
     }
 
