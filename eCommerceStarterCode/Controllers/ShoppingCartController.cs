@@ -1,12 +1,16 @@
 ﻿using eCommerceStarterCode.Data;
 using eCommerceStarterCode.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
 namespace eCommerceStarterCode.Controllers
 {
+    [Route("api/cart")]
+    [ApiController]
     public class ShoppingCartController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -14,6 +18,8 @@ namespace eCommerceStarterCode.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("{Add}"), Authorize]
         public IActionResult AddProductToShoppingCart()
         {
             var userId = User.FindFirstValue("id");
@@ -38,26 +44,29 @@ namespace eCommerceStarterCode.Controllers
             return View();
         }
 
+        [HttpGet("{Delete}"), Authorize]
         void RemoveProductFromShoppingCart()
         {
             //assign variable to "productId"
             var ProductToBeRemoved = "productId";
-            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Products.Name == ProductToBeRemoved).SingleOrDefault;
+            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Product.Name == ProductToBeRemoved).SingleOrDefault();
             _context.ShoppingCarts.Remove(ItemToRemove);
             _context.SaveChanges();
         }
 
+        [HttpGet("{/}"), Authorize]
         public IActionResult GetProductFromShoppingCart(string UserData)
         {
             var GetProducts = _context.ShoppingCarts.Include(sc => sc.Users).Include(sc => sc.Product).Where(sc => sc.Users.Id == UserData);
+            var products = GetProducts.ToList();
             foreach (ShoppingCart product in GetProducts)
             {
-                var ItemsInCart = [];
+                var ItemsInCart = product;
+                Console.WriteLine(ItemsInCart);
+            };
+            
 
-            }
-
-
-            return View()
+            return View();
         }
 
 

@@ -12,15 +12,17 @@ namespace eCommerceStarterCode.Configuration
             (
                 new IdentityRole
                 {
-                    Id = "1",
+                    Id = "c073f42c-79e8-41a6-a5d7-0ed41ae7aca0",
                     Name = "User",
-                    NormalizedName = "USER"
+                    NormalizedName = "USER",
+                    ConcurrencyStamp = "ce64b652-9ab3-4987-af94-71a0056c7c35"
                 },
                 new IdentityRole
                 {
-                    Id="2",
+                    Id= "a85197de-2346-492e-861e-08b0370b485f",
                     Name = "Admin",
-                    NormalizedName = "ADMIN"
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp= "6be80fff-c1e9-4f1c-837e-b38f68802b74"
                 }
             );
         }

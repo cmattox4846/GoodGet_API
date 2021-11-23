@@ -6,10 +6,11 @@ namespace eCommerceStarterCode.Models
     public class Products
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public int Testing { get; set; }    
         
     }
 }

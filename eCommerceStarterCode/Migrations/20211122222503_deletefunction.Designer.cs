@@ -10,8 +10,8 @@ using eCommerceStarterCode.Data;
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211122174955_productcontroller")]
-    partial class productcontroller
+    [Migration("20211122222503_deletefunction")]
+    partial class deletefunction
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
-                            ConcurrencyStamp = "d55ff50c-ccff-4d61-9966-1666dfe976b8",
+                            Id = "c073f42c-79e8-41a6-a5d7-0ed41ae7aca0",
+                            ConcurrencyStamp = "ce64b652-9ab3-4987-af94-71a0056c7c35",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "2",
-                            ConcurrencyStamp = "1aae894a-6768-4f79-9681-442ef4c2f54c",
+                            Id = "a85197de-2346-492e-861e-08b0370b485f",
+                            ConcurrencyStamp = "6be80fff-c1e9-4f1c-837e-b38f68802b74",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -170,8 +170,10 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Products", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -182,6 +184,9 @@ namespace eCommerceStarterCode.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Testing")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -189,31 +194,35 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = 1,
                             Description = "Samsung QLED 55 TV",
                             Name = "Samsung TV",
-                            Price = 1299.99m
+                            Price = 1299.99m,
+                            Testing = 0
                         },
                         new
                         {
-                            Id = "2",
+                            Id = 2,
                             Description = "Beats by Dre Wireless Headphones",
                             Name = "Beats Headphones",
-                            Price = 199.99m
+                            Price = 199.99m,
+                            Testing = 0
                         },
                         new
                         {
-                            Id = "3",
+                            Id = 3,
                             Description = "GoPro Hero 9",
                             Name = "GoPro",
-                            Price = 459.99m
+                            Price = 459.99m,
+                            Testing = 0
                         },
                         new
                         {
-                            Id = "4",
+                            Id = 4,
                             Description = "Cat 6 Etherenet Cable 25'",
                             Name = "Ethernet Cable",
-                            Price = 459.99m
+                            Price = 9.99m,
+                            Testing = 0
                         });
                 });
 
@@ -252,18 +261,21 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
                 {
-                    b.Property<int>("Quantity")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Quantity");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -423,7 +435,9 @@ namespace eCommerceStarterCode.Migrations
                 {
                     b.HasOne("eCommerceStarterCode.Models.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("eCommerceStarterCode.Models.User", "Users")
                         .WithMany()
