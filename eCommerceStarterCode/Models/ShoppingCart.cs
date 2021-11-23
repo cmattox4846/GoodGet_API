@@ -5,8 +5,8 @@ namespace eCommerceStarterCode.Models
 {
     public class ShoppingCart
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
         public int Quantity { get; set; }
         
 
@@ -15,11 +15,11 @@ namespace eCommerceStarterCode.Models
 
         public string UserID { get; set; }
 
-        public User Users{ get; set; }
+        public User User{ get; set; }
 
         [ForeignKey("Product")]
 
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         public Products Product { get; set; }
     }

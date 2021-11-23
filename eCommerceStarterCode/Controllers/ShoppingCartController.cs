@@ -30,17 +30,10 @@ namespace eCommerceStarterCode.Controllers
             {
                 return NotFound();
             }
-            
-            var productId = _context.Products.Where(p => p.Id == value.Id).Select(p => p.Id).SingleOrDefault();
+          
+            value.UserID = userId;
 
-            ShoppingCart newProduct = new ShoppingCart()
-            {
-                UserID = userId,
-                ProductId = productId,
-                Quantity = 1,
-            };
-
-            _context.ShoppingCarts.Add(newProduct);
+            _context.ShoppingCarts.Add(value);
             _context.SaveChanges();
 
             return StatusCode(201, value);
@@ -62,7 +55,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet, Authorize]
         public IActionResult GetProductFromShoppingCart(string UserData)
         {
-            var GetProducts = _context.ShoppingCarts.Include(sc => sc.Users).Include(sc => sc.Product).Where(sc => sc.Users.Id == UserData);
+            var GetProducts = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Id == UserData);
             var products = GetProducts.ToList();
             foreach (ShoppingCart product in GetProducts)
             {
