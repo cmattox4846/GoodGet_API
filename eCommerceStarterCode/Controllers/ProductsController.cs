@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace eCommerceStarterCode.Controllers
 {
-    [Route("api/product")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -59,37 +59,41 @@ namespace eCommerceStarterCode.Controllers
             _context.SaveChanges();
         }
 
-        //[HttpGet("{Add}"), Authorize]
-        //void AddProduct(object addThisProduct)
-        //{
-        //    var item = addThisProduct;
-        //    Products newProduct = new Products()
-        //        {
+        [HttpPost("{Add}"), Authorize]
+        public IActionResult AddProduct([FromBody]Products addThisProduct)
+        {
 
-        //            Name = item.Name,
-        //            Description = addThisProduct.Description,
-        //            Price = addThisProduct.Price
-        //        }
-        //    _context.Products.Add(newProduct);
-        //    _context.SaveChanges();
+            Products newProduct = new Products()
+            {
+
+                Name = addThisProduct.Name,
+                Description = addThisProduct.Description,
+                Price = addThisProduct.Price
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
+
+            return StatusCode(204, newProduct);
 
 
 
 
-        //}
-
-        //[HttpGet("{Edit}"), Authorize]
-        //void EditProduct(string editThisProduct)
-        //{
-        //    var editProduct = _context.Products.Where(pr => pr.Id == editThisProduct.Id);
-
-        //        editProduct.Name = editThisProduct.Name,
-        //        editProduct.Description = editThisProduct.Description,
-        //        editProduct.Price = editThisProduct.Price,
-
-        //    _context.Products.Update(editProduct);
-        //    _context.SaveChanges();
         }
 
+        [HttpPut("{ID}"), Authorize]
+        public IActionResult EditProduct(int Id, [FromBody] Products editThisProduct)
+        {
+            var updatedProduct = _context.Products.Where(pr => pr.Id == Id).SingleOrDefault();
+
+            updatedProduct.Name = editThisProduct.Name;
+            updatedProduct.Description = editThisProduct.Description;
+            updatedProduct.Price = editThisProduct.Price;
+
+            _context.Products.Update(updatedProduct);
+            _context.SaveChanges();
+
+            return StatusCode(204, updatedProduct);
+        }
     }
-//}
+
+}

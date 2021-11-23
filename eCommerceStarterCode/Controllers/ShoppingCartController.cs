@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace eCommerceStarterCode.Controllers
 {
-    [Route("api/cart")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ShoppingCartController : Controller
     {
@@ -19,8 +19,10 @@ namespace eCommerceStarterCode.Controllers
             _context = context;
         }
 
-        [HttpGet("{Add}"), Authorize]
-        public IActionResult AddProductToShoppingCart()
+        // **** ADD A Shopping cart
+        // POST /api/shoppingcart
+        [HttpPost, Authorize]
+        public IActionResult AddProductToShoppingCart([FromBody] ShoppingCart value)
         {
             var userId = User.FindFirstValue("id");
             var user = _context.Users.Find(userId);
@@ -28,8 +30,8 @@ namespace eCommerceStarterCode.Controllers
             {
                 return NotFound();
             }
-            //assign variable to "product"
-            var productId = _context.Products.Where(p => p.Name == "product" ).Select(p => p.Id).SingleOrDefault();
+            
+            var productId = _context.Products.Where(p => p.Id == value.Id).Select(p => p.Id).SingleOrDefault();
 
             ShoppingCart newProduct = new ShoppingCart()
             {
@@ -41,20 +43,23 @@ namespace eCommerceStarterCode.Controllers
             _context.ShoppingCarts.Add(newProduct);
             _context.SaveChanges();
 
-            return View();
+            return StatusCode(201, value);
         }
-
-        [HttpGet("{Delete}"), Authorize]
-        void RemoveProductFromShoppingCart()
+        // *** DELETE A Record ***
+        // DELETE /api/shoppingcart
+        [HttpDelete("{Id}"), Authorize]
+        public IActionResult RemoveProductFromShoppingCart(int Id)
         {
-            //assign variable to "productId"
-            var ProductToBeRemoved = "productId";
-            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Product.Name == ProductToBeRemoved).SingleOrDefault();
+            
+            
+            var ItemToRemove = _context.ShoppingCarts.Include(sc => sc.Product).Where(sc => sc.Product.Id == Id).SingleOrDefault();
             _context.ShoppingCarts.Remove(ItemToRemove);
             _context.SaveChanges();
+
+            return StatusCode(202, Id);
         }
 
-        [HttpGet("{/}"), Authorize]
+        [HttpGet, Authorize]
         public IActionResult GetProductFromShoppingCart(string UserData)
         {
             var GetProducts = _context.ShoppingCarts.Include(sc => sc.Users).Include(sc => sc.Product).Where(sc => sc.Users.Id == UserData);
