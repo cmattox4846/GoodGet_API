@@ -59,37 +59,37 @@ namespace eCommerceStarterCode.Controllers
             _context.SaveChanges();
         }
 
-        [HttpGet("{Add}"), Authorize]
-        void AddProduct(object addThisProduct)
-        {
-            var item = addThisProduct;
-            Products newProduct = new Products()
-                {
-                
-                    Name = item.Name,
-                    Description = addThisProduct.Description,
-                    Price = addThisProduct.Price
-                }
-            _context.Products.Add(newProduct);
-            _context.SaveChanges();
+        //[HttpGet("{Add}"), Authorize]
+        //void AddProduct(object addThisProduct)
+        //{
+        //    var item = addThisProduct;
+        //    Products newProduct = new Products()
+        //        {
+
+        //            Name = item.Name,
+        //            Description = addThisProduct.Description,
+        //            Price = addThisProduct.Price
+        //        }
+        //    _context.Products.Add(newProduct);
+        //    _context.SaveChanges();
 
 
 
-            
-        }
 
-        [HttpGet("{Edit}"), Authorize]
-        void EditProduct(string editThisProduct)
-        {
-            var editProduct = _context.Products.Where(pr => pr.Id == editThisProduct.Id);
+        //}
 
-                editProduct.Name = editThisProduct.Name,
-                editProduct.Description = editThisProduct.Description,
-                editProduct.Price = editThisProduct.Price,
-           
-            _context.Products.Update(editProduct);
-            _context.SaveChanges();
+        //[HttpGet("{Edit}"), Authorize]
+        //void EditProduct(string editThisProduct)
+        //{
+        //    var editProduct = _context.Products.Where(pr => pr.Id == editThisProduct.Id);
+
+        //        editProduct.Name = editThisProduct.Name,
+        //        editProduct.Description = editThisProduct.Description,
+        //        editProduct.Price = editThisProduct.Price,
+
+        //    _context.Products.Update(editProduct);
+        //    _context.SaveChanges();
         }
 
     }
-}
+//}

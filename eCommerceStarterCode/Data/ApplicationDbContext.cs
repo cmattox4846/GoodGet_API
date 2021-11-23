@@ -17,12 +17,12 @@ namespace eCommerceStarterCode.Data
         public IEnumerable<object> ShoppingCart { get; internal set; }
 
         public ApplicationDbContext(DbContextOptions options)
-            :base(options)
+            : base(options)
         {
 
         }
 
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,9 @@ namespace eCommerceStarterCode.Data
 
 
             modelBuilder.ApplyConfiguration(new RolesConfiguration());
-        }
 
+            modelBuilder.Entity<Products>()
+                .Property(p => p.Price).HasPrecision(7, 3);
+        }
     }
 }
