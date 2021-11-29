@@ -36,12 +36,15 @@ namespace eCommerceStarterCode.Controllers
             return Ok(products);
         }
 
-        [HttpGet(), Authorize]
+
+        [HttpGet("{searchProducts}"), Authorize]
+
         public IActionResult FilterProducts( string searchProducts)
         {
 
             var searchForProducts = _context.Products.Where(sp => sp.Name.Contains(searchProducts));
-            return Ok(searchProducts);
+
+            return Ok(searchForProducts);
 
         }
        
