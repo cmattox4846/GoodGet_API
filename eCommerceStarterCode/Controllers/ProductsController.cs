@@ -39,14 +39,12 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{Id}"), Authorize]
         public IActionResult FilterProducts( string searchProducts)
         {
-           
-            var searchForProducts = _context.Products.Where(sp => sp.Name == searchProducts).FirstOrDefault();
-            return Ok();
+
+            var searchForProducts = _context.Products.Where(sp => sp.Name.Contains(searchProducts));
+            return Ok(searchProducts);
+
         }
-        Products newProductList = new Products()
-        {
-            
-        };
+       
         [HttpDelete("{Id}"), Authorize]
         public IActionResult RemoveProduct(int Id)
         {
