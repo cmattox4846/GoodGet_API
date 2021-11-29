@@ -12,10 +12,10 @@ namespace eCommerceStarterCode.Models
         public int Rating { get; set; }
         
         
-        [ForeignKey("ProductReview")]
+        [ForeignKey("ProductId")]
 
-        public string ReviewID { get; set; }
+        public int ReviewId { get; set; }
 
-        public Reviews ProductReview { get; set; }
+        public Products ProductId{ get; set; }
     }
 }
