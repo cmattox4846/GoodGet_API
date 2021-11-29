@@ -36,7 +36,7 @@ namespace eCommerceStarterCode.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{Id}"), Authorize]
+        [HttpGet(), Authorize]
         public IActionResult FilterProducts( string searchProducts)
         {
 
