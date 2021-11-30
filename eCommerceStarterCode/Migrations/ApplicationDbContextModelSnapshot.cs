@@ -220,18 +220,23 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Reviews", b =>
                 {
-                    b.Property<string>("Review")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReviewId")
-                        .HasColumnType("int");
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Review");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ReviewId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
                 });
@@ -416,13 +421,13 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Reviews", b =>
                 {
-                    b.HasOne("eCommerceStarterCode.Models.Products", "ProductId")
+                    b.HasOne("eCommerceStarterCode.Models.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ReviewId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductId");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>

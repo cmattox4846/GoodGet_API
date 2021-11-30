@@ -10,8 +10,8 @@ using eCommerceStarterCode.Data;
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211122221506_nevinTesting")]
-    partial class nevinTesting
+    [Migration("20211130201320_thing")]
+    partial class thing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,10 +182,8 @@ namespace eCommerceStarterCode.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Testing")
-                        .HasColumnType("int");
+                        .HasPrecision(7, 3)
+                        .HasColumnType("decimal(7,3)");
 
                     b.HasKey("Id");
 
@@ -197,49 +195,50 @@ namespace eCommerceStarterCode.Migrations
                             Id = 1,
                             Description = "Samsung QLED 55 TV",
                             Name = "Samsung TV",
-                            Price = 1299.99m,
-                            Testing = 0
+                            Price = 1299.99m
                         },
                         new
                         {
                             Id = 2,
                             Description = "Beats by Dre Wireless Headphones",
                             Name = "Beats Headphones",
-                            Price = 199.99m,
-                            Testing = 0
+                            Price = 199.99m
                         },
                         new
                         {
                             Id = 3,
                             Description = "GoPro Hero 9",
                             Name = "GoPro",
-                            Price = 459.99m,
-                            Testing = 0
+                            Price = 459.99m
                         },
                         new
                         {
                             Id = 4,
                             Description = "Cat 6 Etherenet Cable 25'",
                             Name = "Ethernet Cable",
-                            Price = 9.99m,
-                            Testing = 0
+                            Price = 9.99m
                         });
                 });
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Reviews", b =>
                 {
-                    b.Property<string>("Review")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReviewID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Review");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ReviewID");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
                 });
@@ -424,11 +423,13 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Reviews", b =>
                 {
-                    b.HasOne("eCommerceStarterCode.Models.Reviews", "ProductReview")
+                    b.HasOne("eCommerceStarterCode.Models.Products", "Product")
                         .WithMany()
-                        .HasForeignKey("ReviewID");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ProductReview");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
@@ -439,13 +440,13 @@ namespace eCommerceStarterCode.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eCommerceStarterCode.Models.User", "Users")
+                    b.HasOne("eCommerceStarterCode.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
 
                     b.Navigation("Product");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("eCommerceStarterCode.Models.UserRoles", b =>

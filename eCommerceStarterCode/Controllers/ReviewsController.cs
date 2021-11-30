@@ -39,17 +39,17 @@ namespace eCommerceStarterCode.Controllers
         [HttpDelete("{Id}"), Authorize]
         public IActionResult RemoveReview(int Id)
         {
-            var deleteReview = _context.Reviews.Where(rv => rv.ReviewId == Id);
+            var deleteReview = _context.Reviews.Find(Id);
 
-            foreach (Reviews reviewRemoval in deleteReview)
-            {
-                _context.Reviews.Remove(reviewRemoval);
-            }
+            //foreach (Reviews reviewRemoval in deleteReview)
+            //{
+            //    _context.Reviews.Remove(reviewRemoval);
+            //}
             _context.SaveChanges();
             return StatusCode(202, Id);
         }
 
-        [HttpPost(), Authorize]
+        [HttpPost, Authorize]
         public IActionResult AddReview([FromBody] Reviews addThisReview)
         {
 
@@ -58,7 +58,7 @@ namespace eCommerceStarterCode.Controllers
 
                 Review = addThisReview.Review,
                 Rating = addThisReview.Rating,
-                ReviewId = addThisReview.ReviewId
+                ProductId = addThisReview.ProductId
             };
             _context.Reviews.Add(newReview);
             _context.SaveChanges();
@@ -73,11 +73,11 @@ namespace eCommerceStarterCode.Controllers
         [HttpPut("{ID}"), Authorize]
         public IActionResult EditReview(int Id, [FromBody] Reviews editThisReview)
         {
-            var updatedReview = _context.Reviews.Where(rv => rv.ReviewId == Id).SingleOrDefault();
+            var updatedReview = _context.Reviews.Find(Id);
 
             updatedReview.Review = editThisReview.Review;
             updatedReview.Rating = editThisReview.Rating;
-            updatedReview.ReviewId = editThisReview.ReviewId;
+            updatedReview.ProductId = editThisReview.ProductId;
 
             _context.Reviews.Update(updatedReview);
             _context.SaveChanges();
