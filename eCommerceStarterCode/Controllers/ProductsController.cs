@@ -46,12 +46,7 @@ namespace eCommerceStarterCode.Controllers
 
             return Ok(searchForProducts);
 
-<<<<<<< HEAD
-            
 
-
-=======
->>>>>>> 7aba100805293de374cfd13c0135dbbc896e4c0a
         }
        
         [HttpDelete("{Id}"), Authorize]
