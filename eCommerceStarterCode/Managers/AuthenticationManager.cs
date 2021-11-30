@@ -53,7 +53,10 @@ namespace eCommerceStarterCode.Managers
             {
                 new Claim("username", _user.UserName),
                 new Claim("email", _user.Email),
-                new Claim("id", _user.Id)
+                new Claim("id", _user.Id),
+                new Claim("firstname", _user.FirstName),
+                new Claim("lastname", _user.LastName),
+                new Claim("phonenumber", _user.PhoneNumber)
             };
 
             var roles = await _userManager.GetRolesAsync(_user);
